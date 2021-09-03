@@ -3,8 +3,8 @@ package com.duy.compass.location.database;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.duy.compass.location.model.LocationData;
 import com.duy.compass.location.model.Sunshine;
@@ -23,11 +23,14 @@ public class CompassPref {
     private static final String LATITUDE = "latitude";
     private static final String SUNSET = "sunset";
     private static final String SUNRISE = "sunrise";
+    private final static String PREF_KEY = "Compass";
 
     private SharedPreferences mPref;
 
     public CompassPref(Context context) {
-        this.mPref = PreferenceManager.getDefaultSharedPreferences(context);
+//        this.mPref = PreferenceManager.getDefaultSharedPreferences(context);
+        this.mPref = context.getSharedPreferences(PREF_KEY, 0);
+        SharedPreferences.Editor editor = mPref.edit();
     }
 
     @Nullable

@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,6 +47,12 @@ public class CompassFragment extends BaseFragment implements SensorListener.OnVa
     private AccelerometerView mAccelerometerView;
     private SensorListener mSensorListener;
     private CompassPref mCompassPref;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mCompassPref = new CompassPref(getActivity());
+    }
 
     public static CompassFragment newInstance() {
 
@@ -177,7 +183,7 @@ public class CompassFragment extends BaseFragment implements SensorListener.OnVa
 
     @Override
     public void onUpdateLocationData(@Nullable LocationData locationData) {
-        if (locationData == null) {
+        if (locationData == null && mCompassPref!=null) {
             locationData = mCompassPref.getLastedLocationData();
         }
         if (locationData != null) {
